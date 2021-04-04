@@ -11,6 +11,7 @@ To configure this bot add the environment variables stated below.
 - `BOT_TOKEN` - Get it by creating a bot on [https://t.me/BotFather](https://t.me/BotFather)
 - `FROM_CHATS` - Chat ID of the chats from where to forward messages. Seperated by space.
 - `TO_CHATS` - Chat ID of the chats where to forward messages. Seperated by space.
+- `TELEGRAM_SESSION` - (Optional) If you want to use this bot as user add the telegram session name in environment variables. Get it by running [GenString](https://replit.com/@viperadnan/genstring) and select the option 1 and follow the instructions.
 
 ### Installing Requirements
 Install the required Python Modules in your machine. Not required if using [Heroku](https://heroku.com).

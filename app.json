@@ -26,6 +26,10 @@
     },
     "TO_CHATS": {
       "description": "Chat ID of thr chat where to forward messages"
+    },
+    "TELEGRAM_SESSION": {
+      "description": "Telegram session name, required if you want to login as user",
+      "required": false
     }
   }
 }
