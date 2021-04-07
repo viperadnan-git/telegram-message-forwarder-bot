@@ -12,6 +12,14 @@ To configure this bot add the environment variables stated below.
 - `FROM_CHATS` - Chat ID of the chats from where to forward messages. Seperated by space.
 - `TO_CHATS` - Chat ID of the chats where to forward messages. Seperated by space.
 - `TELEGRAM_SESSION` - (Optional) If you want to use this bot as user add the telegram session name in environment variables. Get it by running [GenString](https://replit.com/@viperadnan/genstring) and select the option 1 and follow the instructions.
+- `ADVANCE_CONFIG` - (Optional) If you want forward message from chat A to chat B and from chat C to chat D add this value in the format given below.
+```
+CHAT_ID_A CHAT_ID_B, CHAT_ID_C CHAT_ID_D
+```
+Or if you want to forward message from chat A to chat B and chat C
+```
+CHAT_ID_A CHAT_ID_B, CHAT_ID_B CHAT_ID_C
+```
 
 ### Installing Requirements
 Install the required Python Modules in your machine. Not required if using [Heroku](https://heroku.com).
