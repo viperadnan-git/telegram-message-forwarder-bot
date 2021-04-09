@@ -1,5 +1,10 @@
+import os
 from os import environ
+from dotenv import load_dotenv
 from pyrogram import Client, filters
+
+if os.path.exists('config.env'):
+  load_dotenv('config.env')
 
 api_id = int(environ["API_ID"])
 api_hash = environ["API_HASH"]

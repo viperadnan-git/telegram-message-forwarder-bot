@@ -5,7 +5,7 @@ A telegram bot, which can forward messages from channel, group or chat to anothe
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### Configuration
-To configure this bot add the environment variables stated below.
+To configure this bot add the environment variables stated below. Or add them in [config.env.template](./config.env.template) and change the name to `config.env`.
 - `API_ID` - Get it by creating an app on [https://my.telegram.org](https://my.telegram.org)
 - `API_HASH` - Get it by creating an app on [https://my.telegram.org](https://my.telegram.org)
 - `BOT_TOKEN` - Get it by creating a bot on [https://t.me/BotFather](https://t.me/BotFather)
