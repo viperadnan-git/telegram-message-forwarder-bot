@@ -24,6 +24,8 @@ From channel       To channel        from another channel
 - `REMOVE_STRING` - (Optional) Keyword to remove from message before forwarding.
 - `REPLACE_STRING` - (Optional) Keyword to add in the place of `REMOVE_STRING`
 
+*Note - Supported identifier for a chat should be the chat id, username or message link.*
+
 ### Installing Requirements
 Install the required Python Modules in your machine.
 ```

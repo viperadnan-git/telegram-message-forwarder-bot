@@ -1,6 +1,6 @@
 {
   "name": "Telegram Message Forwarder Bot",
-  "description": "A Pyrogram bot, which can easily be deployed to Heroku.",
+  "description": "A Telegram forwarder bot, which can easily be deployed to Heroku.",
   "repository": "https://github.com/viperadnan-git/telegram-message-forwarder-bot",
   "logo": "https://avatars1.githubusercontent.com/u/34474300?s=280&v=4",
   "keywords": ["python", "pyrogram", "telegram", "forwarder"],
@@ -19,16 +19,31 @@
       "description": "App api_hash from https://my.telegram.org"
     },
     "BOT_TOKEN": {
-      "description": "Bot token from https://t.me/BotFather"
+      "description": "Bot token from https://t.me/BotFather",
+      "required": false
     },
     "FROM_CHATS": {
-      "description": "Chat ID of the channel/groups/chat from where to forward messages"
+      "description": "Chat ID of the channel/groups/chat from where to forward messages",
+      "required": false
     },
     "TO_CHATS": {
-      "description": "Chat ID of thr chat where to forward messages"
+      "description": "Chat ID of thr chat where to forward messages",
+      "required": false
     },
     "TELEGRAM_SESSION": {
       "description": "Telegram session name, required if you want to login as user",
+      "required": false
+    },
+    "ADVANCE_CONFIG": {
+      "description": "Advance config values in valid format.",
+      "required": false
+    },
+    "REMOVE_STRING": {
+      "description": "Keyword to remove from messages before forwarding.",
+      "required": false
+    },
+    "REPLACE_STRING": {
+      "description": "Keyword to add in the place of REMOVE_STRING",
       "required": false
     }
   }
