@@ -1,7 +1,6 @@
 # Telegram Message Forwarder Bot
 A telegram bot, which can forward messages from channel, group or chat to another channel, group or chat automatically.
 
-## Deploy to Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### Configuration
@@ -16,17 +15,26 @@ To configure this bot add the environment variables stated below. Or add them in
 ```
 CHAT_ID_A CHAT_ID_B, CHAT_ID_C CHAT_ID_D
 ```
-Or if you want to forward message from chat A to chat B and chat C
+Or if you want to forward message from chat A to chat B, C and D. And from Chat E to Chat F
 ```
-CHAT_ID_A CHAT_ID_B, CHAT_ID_B CHAT_ID_C
+CHAT_ID_A CHAT_ID_B CHAT_ID_C CHAT_ID_D, CHAT_ID_E CHAT_ID_F
+     ↑       ^---------------------^         ↑         ↑ to another chat
+From channel       To channel        from another channel
 ```
+- `REMOVE_STRING` - (Optional) Keyword to remove from message before forwarding.
+- `REPLACE_STRING` - (Optional) Keyword to add in the place of `REMOVE_STRING`
 
 ### Installing Requirements
-Install the required Python Modules in your machine. Not required if using [Heroku](https://heroku.com).
+Install the required Python Modules in your machine.
 ```
 pip3 install -r requirements.txt
 ```
+### Deployment
+With python3.7 or later.
+```
+python3 -m bot
+```
 
-## Copyright & License
-- Copyright (©) 2020 by [Adnan Ahmad](https://github.com/viperadnan-git)
-- Licensed under the terms of the [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007](./LICENSE)
+### Copyright & License
+- Copyright &copy; 2021 &mdash; [Adnan Ahmad](https://github.com/viperadnan-git)
+- Licensed under the terms of the [GNU General Public License Version 3 &dash; 29 June 2007](./LICENSE)
