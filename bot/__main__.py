@@ -7,7 +7,7 @@ def work(client, message):
     caption = None
     msg = None
     if remove_string:
-      if message.media:
+      if message.media and not message.poll:
         caption = message.caption.html.replace(remove_string, replace_string)
       elif message.text:
         msg = message.text.html.replace(remove_string, replace_string)
