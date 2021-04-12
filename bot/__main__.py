@@ -1,16 +1,17 @@
 import os
 from pyrogram import filters
-from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, remove_string, replace_string
+from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, remove_strings, replace_string
 
 @app.on_message(filters.chat(from_chats) & filters.incoming)
 def work(client, message):
     caption = None
     msg = None
-    if remove_string:
-      if message.media and not message.poll:
-        caption = message.caption.html.replace(remove_string, replace_string)
-      elif message.text:
-        msg = message.text.html.replace(remove_string, replace_string)
+    if remove_strings:
+      for string in remove_strings:
+        if message.media and not message.poll:
+          caption = message.caption.html.replace(string, replace_string)
+        elif message.text:
+          msg = message.text.html.replace(string, replace_string)
     if advance_config:
       try:
         for chat in chats_data[message.chat.id]:

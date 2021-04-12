@@ -31,7 +31,6 @@ try:
   advance_config = environ.get("ADVANCE_CONFIG", None)
   if advance_config:
     from_chats = []
-  remove_string = environ.get("REMOVE_STRING", False)
   replace_string = environ.get("REPLACE_STRING", "")
 except KeyError as e:
   LOG.error(e)
@@ -41,6 +40,11 @@ except ValueError as e:
   LOG.error(e)
   LOG.error("One or more variables are wrong. Exiting...")
   sys.exit(1)
+
+try:
+  remove_strings = list(set(x for x in environ.get("REMOVE_STRINGS").split(";")))
+except:
+  remove_strings = None
 
 if tg_session:
   app = Client(tg_session, api_id, api_hash)
@@ -52,7 +56,7 @@ else:
 
 if advance_config:
   with app:
-    for chats in advance_config.split(","):
+    for chats in advance_config.split(";"):
       chat = chats.strip().split()
       chat = get_formatted_chats(chat, app)
       f = chat[0]
@@ -72,5 +76,7 @@ else:
     LOG.error("Set either ADVANCE_CONFIG or FROM_CHATS and TO_CHATS")
     sys.exit(1)
   else:
+    from_chats = get_formatted_chats(from_chats)
+    to_chats = get_formatted_chats(to_chats)
     LOG.info(from_chats)
     LOG.info(to_chats)
