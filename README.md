@@ -21,7 +21,7 @@ CHAT_ID_A CHAT_ID_B CHAT_ID_C CHAT_ID_D; CHAT_ID_E CHAT_ID_F
      ↑       ^---------------------^         ↑         ↑ to another chat
 From channel       To channel        from another channel
 ```
-- `REMOVE_STRING` - (Optional) Keywords to remove from message before forwarding. Seperated by `;`. For example - 
+- `REMOVE_STRINGS` - (Optional) Keywords to remove from message before forwarding. Seperated by `;`. For example - 
 ```
 @username;https://t.me/username;Hey! My channel is XXxxXX
 ```

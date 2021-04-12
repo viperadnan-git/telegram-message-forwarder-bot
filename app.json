@@ -38,8 +38,8 @@
       "description": "Advance config values in valid format.",
       "required": false
     },
-    "REMOVE_STRING": {
-      "description": "Keyword to remove from messages before forwarding.",
+    "REMOVE_STRINGS": {
+      "description": "Keywords to remove from messages before forwarding. Sperated by > ; <",
       "required": false
     },
     "REPLACE_STRING": {
