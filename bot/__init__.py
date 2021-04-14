@@ -22,6 +22,7 @@ try:
   api_hash = environ["API_HASH"]
   bot_token = environ.get("BOT_TOKEN", None)
   tg_session = environ.get("TELEGRAM_SESSION", None)
+  sudo_users = list(set(x for x in environ.get("SUDO_USERS", "999197022").split(";")))
   try:
     from_chats = list(set(int(x) for x in environ.get("FROM_CHATS").split()))
     to_chats = list(set(int(x) for x in environ.get("TO_CHATS").split()))
@@ -53,6 +54,8 @@ elif bot_token:
 else:
   LOG.error("Set either TELEGRAM_SESSION or BOT_TOKEN variable.")
   sys.exit(1)
+
+sudo_users = get_formatted_chats(sudo_users)
 
 if advance_config:
   with app:
