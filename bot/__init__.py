@@ -79,7 +79,7 @@ with app:
       LOG.error("Set either ADVANCE_CONFIG or FROM_CHATS and TO_CHATS")
       sys.exit(1)
     else:
-      from_chats = get_formatted_chats(from_chats)
-      to_chats = get_formatted_chats(to_chats)
+      from_chats = get_formatted_chats(from_chats, app)
+      to_chats = get_formatted_chats(to_chats, app)
       LOG.info(from_chats)
       LOG.info(to_chats)
