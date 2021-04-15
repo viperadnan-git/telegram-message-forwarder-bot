@@ -42,7 +42,7 @@ def work(client, message):
 @app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]))
 def forward(app, message):
     if len(message.command) > 1:
-      chat_id = get_formatted_chat(message.command[2])
+      chat_id = get_formatted_chat(message.command[2], app)
       if chat_id:
         try:
           offset_id = 0
