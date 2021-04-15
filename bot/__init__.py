@@ -55,10 +55,10 @@ else:
   LOG.error("Set either TELEGRAM_SESSION or BOT_TOKEN variable.")
   sys.exit(1)
 
-sudo_users = get_formatted_chats(sudo_users)
-
-if advance_config:
-  with app:
+with app:
+  sudo_users = get_formatted_chats(sudo_users, app)
+  LOG.info(f"Sudo users - {sudo_users}")
+  if advance_config:
     for chats in advance_config.split(";"):
       chat = chats.strip().split()
       chat = get_formatted_chats(chat, app)
@@ -74,12 +74,12 @@ if advance_config:
         from_chats.append(f)
     LOG.info(from_chats)
     LOG.info(chats_data)
-else:
-  if len(to_chats) == 0 or len(from_chats) == 0:
-    LOG.error("Set either ADVANCE_CONFIG or FROM_CHATS and TO_CHATS")
-    sys.exit(1)
   else:
-    from_chats = get_formatted_chats(from_chats)
-    to_chats = get_formatted_chats(to_chats)
-    LOG.info(from_chats)
-    LOG.info(to_chats)
+    if len(to_chats) == 0 or len(from_chats) == 0:
+      LOG.error("Set either ADVANCE_CONFIG or FROM_CHATS and TO_CHATS")
+      sys.exit(1)
+    else:
+      from_chats = get_formatted_chats(from_chats)
+      to_chats = get_formatted_chats(to_chats)
+      LOG.info(from_chats)
+      LOG.info(to_chats)
