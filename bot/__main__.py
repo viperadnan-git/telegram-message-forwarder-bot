@@ -6,6 +6,18 @@ from bot import LOG, app, advance_config, chats_data, from_chats, to_chats, \
                 remove_strings, replace_string, sudo_users
 from bot.helper.utils import get_formatted_chat
 
+def copy_with_media(client, message, chat, caption):
+  if message.media and (message.audio or message.photo or message.document or message.video or message.voice):
+    file = message.download('/tmp/tgfiles/')
+    if caption is None:
+      caption = message.caption
+    if caption is None:
+      client.send_document(chat_id=chat, document=file)
+    else: 
+      client.send_document(chat_id=chat, document=file, caption=caption)
+  else:
+    message.copy(chat)
+
 @app.on_message(filters.chat(from_chats) & filters.incoming)
 def work(client, message):
     caption = None
@@ -19,23 +31,19 @@ def work(client, message):
     if advance_config:
       try:
         for chat in chats_data[message.chat.id]:
-          if caption:
-            message.copy(chat, caption=caption)
-          elif msg:
-            app.send_message(chat, msg, parse_mode="html")
+          if msg:
+            app.send_message(chat, msg)
           else:
-            message.copy(chat)
+            copy_with_media(client, message, chat, caption)
       except Exception as e:
         LOG.error(e)
     else:
       try:
         for chat in to_chats:
-          if caption:
-            message.copy(chat, caption=caption)
-          elif msg:
+          if msg:
             app.send_message(chat, msg)
           else:
-            message.copy(chat)
+            copy_with_media(client, message, chat, caption)
       except Exception as e:
         LOG.error(e)
 
