@@ -8,13 +8,20 @@ from bot.helper.utils import get_formatted_chat
 
 def copy_with_media(client, message, chat, caption):
   if message.media and (message.audio or message.photo or message.document or message.video or message.voice):
-    file = message.download('/tmp/tgfiles/')
     if caption is None:
       caption = message.caption
     if caption is None:
-      client.send_document(chat_id=chat, document=file)
-    else: 
+      caption = ''
+
+    file = message.download('/tmp/tgfiles/')
+    
+    if message.photo:
+      client.send_photo(chat_id=chat, photo=file, caption=caption)
+    else:
       client.send_document(chat_id=chat, document=file, caption=caption)
+      
+    os.remove(file)
+
   else:
     message.copy(chat)
 
