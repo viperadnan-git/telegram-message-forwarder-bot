@@ -17,6 +17,8 @@ if os.path.exists('config.env'):
 
 chats_data = {}
 
+LOG.info("Welcome, this is the telegram-message-forwarder-bot")
+
 try:
   api_id = int(environ["API_ID"])
   api_hash = environ["API_HASH"]
