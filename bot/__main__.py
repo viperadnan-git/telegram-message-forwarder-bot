@@ -22,22 +22,23 @@ def work(client, message):
       try:
         for chat in chats_data[message.chat.id]:
           if caption:
-            message.copy(chat, caption=caption)
+            message.forward(chat, caption=caption)
           elif msg:
             app.send_message(chat, msg, parse_mode="html")
           else:
-            message.copy(chat)
+            message.forward(chat)
       except Exception as e:
         LOG.error(e)
     else:
       try:
         for chat in to_chats:
           if caption:
-            message.copy(chat, caption=caption)
+            message.forward(chat, caption=caption)
           elif msg:
             app.send_message(chat, msg)
           else:
-            message.copy(chat)
+            #message.forward(chat, reply_to_message_id=message.id, allow_sending_without_reply=True)
+            app.forward_messages(chat, message.chat.id, message.message_id)
       except Exception as e:
         LOG.error(e)
 
