@@ -17,7 +17,7 @@ if os.path.exists('config.env'):
 
 chats_data = {}
 
-LOG.info("Welcome, this is the telegram-message-forwarder-bot")
+LOG.info("Welcome, this is the telegram-message-forwarder-bot. initializing...")
 
 try:
   api_id = int(environ["API_ID"])
@@ -50,8 +50,10 @@ except:
   remove_strings = None
 
 if tg_session:
+  LOG.info("Session Mode - {tg_session}")
   app = Client(tg_session, api_id, api_hash)
 elif bot_token:
+  LOG.info("Bot Mode")
   app = Client(":memory:", api_id, api_hash, bot_token=bot_token)
 else:
   LOG.error("Set either TELEGRAM_SESSION or BOT_TOKEN variable.")
