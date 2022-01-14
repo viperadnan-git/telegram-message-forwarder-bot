@@ -1,4 +1,14 @@
 import sys
+import logging
+from os import environ
+
+log_level = environ.get("LOG_LEVEL", "INFO").upper()
+logging.basicConfig(format='[%(asctime)s - %(pathname)s - %(levelname)s] %(message)s',
+                    handlers=[logging.FileHandler(
+                        'log.txt'), logging.StreamHandler()],
+                    level=log_level)
+LOG = logging.getLogger(__name__)
+
 
 def get_formatted_chats(chats, app):
     formatted_chats = []
@@ -16,10 +26,14 @@ def get_formatted_chats(chats, app):
           else:
             chat_id = app.get_chat(chat_id).id
           formatted_chats.append(chat_id)
+        else:
+          LOG.warn("Chat ID cannot be parsed: {chat}")
       except Exception as e:
+        LOG.error("Chat ID cannot be parsed: {chat}")
         LOG.error(e)
         sys.exit(1)
     return formatted_chats
+
 
 def get_formatted_chat(chat, app):
     try:
@@ -36,8 +50,11 @@ def get_formatted_chat(chat, app):
           chat_id = app.get_chat(chat_id).id
         return chat_id
       else:
+        LOG.warn("Chat ID cannot be parsed: {chat}")
         return None
     except Exception as e:
+      LOG.error("Chat ID cannot be parsed: {chat}")
+      LOG.error(e)
       return None
 
 def isInt(value):

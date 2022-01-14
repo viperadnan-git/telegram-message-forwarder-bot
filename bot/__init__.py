@@ -6,9 +6,10 @@ from dotenv import load_dotenv
 from pyrogram import Client
 from bot.helper.utils import get_formatted_chats
 
+log_level = environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(format='[%(asctime)s - %(pathname)s - %(levelname)s] %(message)s',
                     handlers=[logging.FileHandler('log.txt'), logging.StreamHandler()],
-                    level=logging.INFO)
+                    level=log_level)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 LOG = logging.getLogger(__name__)
 
@@ -76,8 +77,8 @@ with app:
         chats_data[f] = chat
       if not f in from_chats:
         from_chats.append(f)
-    LOG.info(from_chats)
-    LOG.info(chats_data)
+    LOG.info(f"From Chats: {from_chats}")
+    LOG.info(f"Advanced Config: {chats_data}")
   else:
     if len(to_chats) == 0 or len(from_chats) == 0:
       LOG.error("Set either ADVANCE_CONFIG or FROM_CHATS and TO_CHATS")
@@ -85,5 +86,5 @@ with app:
     else:
       from_chats = get_formatted_chats(from_chats, app)
       to_chats = get_formatted_chats(to_chats, app)
-      LOG.info(from_chats)
-      LOG.info(to_chats)
+      LOG.info(f"From Chats: {from_chats}")
+      LOG.info(f"To Chats: {to_chats}")
