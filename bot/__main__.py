@@ -25,46 +25,36 @@ def work(client, message):
         try:
             for chat in to_chats:
                 send_message(message, chat)
-                #app.forward_messages(chat, message.chat.id, message.message_id)
+                # app.forward_messages(chat, message.chat.id, message.message_id)
         except Exception as e:
             LOG.error(e)
 
 
 def send_message(message, chat):
-    sender_name_parts=[]
-    if message.from_user.first_name: sender_name_parts.append(message.from_user.first_name)
-    if message.from_user.last_name: sender_name_parts.append(message.from_user.last_name)
-    if message.from_user.username: sender_name_parts.append("@"+message.from_user.username)
+    sender_name_parts = []
+    if message.from_user.first_name:
+        sender_name_parts.append(message.from_user.first_name)
+    if message.from_user.last_name:
+        sender_name_parts.append(message.from_user.last_name)
+    if message.from_user.username:
+        sender_name_parts.append("@"+message.from_user.username)
     sender_name = " ".join(sender_name_parts)
     from_chat = str(message.chat.id).replace("-100", "")
     message_link = f"https://t.me/c/{from_chat}/{message.message_id}"
-    LOG.debug(f"Send to chat: {chat} message: {message}")
 
-    if remove_strings:
-        for string in remove_strings:
-            if message.media and not message.poll:
-                caption = message.caption.html.replace(string, replace_string)
-            elif message.text:
-                msg = message.text.html.replace(string, replace_string)
+    LOG.info(f"Send message from: {sender_name} / {message.chat.title} to chat: {chat} ")
+    LOG.debug(f"Send message: {message}")
 
-    if message.text:
-        #app.copy_message(chat, message)
-        #app.send_message(chat, message.text)
-        app.send_message(
-            chat, message.text,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            f"{message.chat.title}", url=message_link),
-                        InlineKeyboardButton(
-                            f"PN {sender_name}", url="https://t.me/{message.from_user.user_id}")]
-                ]))
-    if message.photo:
-        app.send_photo(chat, message.photo, caption=message.caption)
+    buttons = [InlineKeyboardButton(f"{message.chat.title}", url=message_link)]
+    if message.from_user.username:
+        buttons.append(
+            InlineKeyboardButton(f"PN @{sender_name}", url="https://t.me/{message.from_user.username}"))
+    app.copy_message(
+        chat, message.chat.id, message.message_id,
+        reply_markup=InlineKeyboardMarkup([buttons]))
 
 
-@app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]), group=1)
+@ app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]), group=1)
 def forward(app, message):
     if len(message.command) > 1:
         chat_id = get_formatted_chat(message.command[1], app)
