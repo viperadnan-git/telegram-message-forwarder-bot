@@ -31,6 +31,13 @@ def work(client, message):
 
 
 def send_message(message, chat):
+    sender_name_parts=[]
+    if message.from_user.first_name: sender_name_parts.append(message.from_user.first_name)
+    if message.from_user.last_name: sender_name_parts.append(message.from_user.last_name)
+    if message.from_user.username: sender_name_parts.append("@"+message.from_user.username)
+    sender_name = " ".join(sender_name_parts)
+    from_chat = str(message.chat.id).replace("-100", "")
+    message_link = f"https://t.me/c/{from_chat}/{message.message_id}"
     LOG.debug(f"Send to chat: {chat} message: {message}")
 
     if remove_strings:
@@ -47,10 +54,11 @@ def send_message(message, chat):
             chat, message.text,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton(
-                        "Data", callback_data="callback_data")],
-                    [InlineKeyboardButton(
-                        "Docs", url="https://docs.pyrogram.org")]
+                    [
+                        InlineKeyboardButton(
+                            f"{message.chat.title}", url=message_link),
+                        InlineKeyboardButton(
+                            f"PN {sender_name}", url="https://t.me/{message.from_user.user_id}")]
                 ]))
     if message.photo:
         app.send_photo(chat, message.photo, caption=message.caption)
