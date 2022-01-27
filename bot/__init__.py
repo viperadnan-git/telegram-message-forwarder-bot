@@ -27,8 +27,8 @@ try:
   tg_session = environ.get("TELEGRAM_SESSION", None)
   sudo_users = list(set(x for x in environ.get("SUDO_USERS", "999197022").split(";")))
   try:
-    from_chats = list(set(int(x) for x in environ.get("FROM_CHATS").split(";")))
-    to_chats = list(set(int(x) for x in environ.get("TO_CHATS").split(";")))
+    from_chats = list(set(int(x) for x in environ.get("FROM_CHATS").split()))
+    to_chats = list(set(int(x) for x in environ.get("TO_CHATS").split()))
   except Exception as e:
     from_chats = []
     to_chats = []
