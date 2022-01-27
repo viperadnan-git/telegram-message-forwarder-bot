@@ -25,7 +25,7 @@ try:
   api_hash = environ["API_HASH"]
   bot_token = environ.get("BOT_TOKEN", None)
   tg_session = environ.get("TELEGRAM_SESSION", None)
-  sudo_users = list(set(x for x in environ.get("SUDO_USERS", "999197022").split(";")))
+  sudo_users = list(set(x for x in environ.get("SUDO_USERS", " ").split(";")))
   try:
     from_chats = list(set(int(x) for x in environ.get("FROM_CHATS").split()))
     to_chats = list(set(int(x) for x in environ.get("TO_CHATS").split()))
@@ -35,7 +35,6 @@ try:
   advance_config = environ.get("ADVANCE_CONFIG", None)
   if advance_config:
     from_chats = []
-  replace_string = environ.get("REPLACE_STRING", "")
 except KeyError as e:
   LOG.error(e)
   LOG.error("One or more variables missing. Exiting...")
@@ -44,11 +43,6 @@ except ValueError as e:
   LOG.error(e)
   LOG.error("One or more variables are wrong. Exiting...")
   sys.exit(1)
-
-try:
-  remove_strings = list(set(x for x in environ.get("REMOVE_STRINGS").split(";")))
-except:
-  remove_strings = None
 
 if tg_session:
   LOG.info("Session Mode - {tg_session}")
@@ -62,7 +56,7 @@ else:
 
 with app:
   sudo_users = get_formatted_chats(sudo_users, app)
-  LOG.info(f"Sudo users - {sudo_users}")
+  LOG.info(f"Sudo users: {sudo_users}")
   if advance_config:
     for chats in advance_config.split(";"):
       chat = chats.strip().split()

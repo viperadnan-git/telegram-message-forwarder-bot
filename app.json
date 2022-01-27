@@ -38,14 +38,6 @@
       "description": "Advance config values in valid format.",
       "required": false
     },
-    "REMOVE_STRINGS": {
-      "description": "Keywords to remove from messages before forwarding. Sperated by > ; <",
-      "required": false
-    },
-    "REPLACE_STRING": {
-      "description": "Keyword to add in the place of REMOVE_STRING",
-      "required": false
-    },
     "SUDO_USERS": {
       "description": "List of sudo users separated by > ; <",
       "required": false
