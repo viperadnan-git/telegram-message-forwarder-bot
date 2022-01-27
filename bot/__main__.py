@@ -43,10 +43,13 @@ def send_message(message, chat):
         f"Send message from: {sender_name} / {message.chat.title} to chat: {chat} ")
     LOG.debug(f"Send message: {message}")
 
-    buttons = [InlineKeyboardButton(f"{message.chat.title}", url=message_link)]
     if message.from_user.username:
-        buttons.append(
-            InlineKeyboardButton(f"PN {sender_name}", url=f"https://t.me/{message.from_user.username}"))
+        buttons = [InlineKeyboardButton(f"{message.chat.title}", url=message_link),
+                   InlineKeyboardButton(f"PN {sender_name}", url=f"https://t.me/{message.from_user.username}")]
+    else:
+        buttons = [InlineKeyboardButton(
+            f"{sender_name} in {message.chat.title}", url=message_link)]
+
     app.copy_message(
         chat, message.chat.id, message.message_id,
         reply_markup=InlineKeyboardMarkup([buttons]))
