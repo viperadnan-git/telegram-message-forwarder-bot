@@ -11,10 +11,8 @@ from bot.helper.utils import get_formatted_chat
 LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
 
 
-@app.on_message(filters.chat(from_chats) & filters.incoming)
+@app.on_message(filters.chat(from_chats) & filters.incoming & ~filters.reply & ~filters.poll)
 def work(client, message):
-    caption = None
-    msg = None
     if advance_config:
         try:
             for chat in chats_data[message.chat.id]:
@@ -42,13 +40,14 @@ def send_message(message, chat):
     from_chat = str(message.chat.id).replace("-100", "")
     message_link = f"https://t.me/c/{from_chat}/{message.message_id}"
 
-    LOG.info(f"Send message from: {sender_name} / {message.chat.title} to chat: {chat} ")
+    LOG.info(
+        f"Send message from: {sender_name} / {message.chat.title} to chat: {chat} ")
     LOG.debug(f"Send message: {message}")
 
     buttons = [InlineKeyboardButton(f"{message.chat.title}", url=message_link)]
     if message.from_user.username:
         buttons.append(
-            InlineKeyboardButton(f"PN @{sender_name}", url="https://t.me/{message.from_user.username}"))
+            InlineKeyboardButton(f"PN {sender_name}", url=f"https://t.me/{message.from_user.username}"))
     app.copy_message(
         chat, message.chat.id, message.message_id,
         reply_markup=InlineKeyboardMarkup([buttons]))
