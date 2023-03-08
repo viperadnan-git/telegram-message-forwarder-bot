@@ -5,11 +5,11 @@ A telegram bot, which can forward messages from channel, group or chat to anothe
 
 ### Configuration
 To configure this bot add the environment variables stated below. Or add them in [config.env.template](./config.env.template) and change the name to `config.env`.
-- `API_ID` - Get it by creating an app on [https://my.telegram.org](https://my.telegram.org)
-- `API_HASH` - Get it by creating an app on [https://my.telegram.org](https://my.telegram.org)
-- `BOT_TOKEN` - Get it by creating a bot on [https://t.me/BotFather](https://t.me/BotFather)
-- `FROM_CHATS` - Chat ID of the chats from where to forward messages. Separated by space.
-- `TO_CHATS` - Chat ID of the chats where to forward messages. Separated by space.
+- `API_ID` - 22056986)
+- `API_HASH` - 621b3f64ef181561f5e8382657a23f0f)
+- `BOT_TOKEN` - 6096958438:AAHHslbZncqTIYxWBbp5FngG3S5EkOgh5rE)
+- `FROM_CHATS` - 5779700223 Chat ID of the chats from where to forward messages. Separated by space.
+- `TO_CHATS` - Done! Congratulations on your new bot. You will find it at t.me/Cek_inf0_bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this. Chat ID of the chats where to forward messages. Separated by space.
 - `TELEGRAM_SESSION` - (Optional) If you want to use this bot as user add the telegram session name in environment variables. Get it by running [GenString](https://replit.com/@viperadnan/genstring) and select the option 1 and follow the instructions.
 - `SUDO_USERS` - (Optional) Chat identifier of the sudo user. For multiple users use `;` as separator.
 - `ADVANCE_CONFIG` - (Optional) If you want forward message from chat A to chat B and from chat C to chat D add this value in the format given below.
