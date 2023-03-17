@@ -12,21 +12,21 @@
     }
   },
   "env": {
-    "API_ID": {
+    "API_ID": {22056986
       "description": "App api_id from https://my.telegram.org"
     },
-    "API_HASH": {
+    "API_HASH": {621b3f64ef181561f5e8382657a23f0f
       "description": "App api_hash from https://my.telegram.org"
     },
-    "BOT_TOKEN": {
+    "BOT_TOKEN": {5743390719:AAEJeW5d-DLH1_kC93snhweO2xXUcrsHUQ0
       "description": "Bot token from https://t.me/BotFather",
       "required": false
     },
-    "FROM_CHATS": {
+    "FROM_CHATS": {5779700223
       "description": "Chat ID of the channel/groups/chat from where to forward messages",
       "required": false
     },
-    "TO_CHATS": {
+    "TO_CHATS": {5779700223
       "description": "Chat ID of thr chat where to forward messages",
       "required": false
     },
