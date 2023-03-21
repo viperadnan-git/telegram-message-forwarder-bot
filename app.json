@@ -11,22 +11,22 @@
       "size": "free"
     }
   },
-  "env": {
-    "API_ID": {
+  "env": {config.env.template
+    "API_ID": {22056986
       "description": "App api_id from https://my.telegram.org"
     },
-    "API_HASH": {
+    "API_HASH": {621b3f64ef181561f5e8382657a23f0f
       "description": "App api_hash from https://my.telegram.org"
     },
-    "BOT_TOKEN": {
+    "BOT_TOKEN": {5743390719:AAEJeW5d-DLH1_kC93snhweO2xXUcrsHUQ0
       "description": "Bot token from https://t.me/BotFather",
       "required": false
     },
-    "FROM_CHATS": {
+    "FROM_CHATS": {5779700223
       "description": "Chat ID of the channel/groups/chat from where to forward messages",
       "required": false
     },
-    "TO_CHATS": {
+    "TO_CHATS": {5779700223
       "description": "Chat ID of thr chat where to forward messages",
       "required": false
     },
@@ -38,7 +38,7 @@
       "description": "Advance config values in valid format.",
       "required": false
     },
-    "REMOVE_STRINGS": {
+    "REMOVE_STRINGS": {@Jedle707
       "description": "Keywords to remove from messages before forwarding. Sperated by > ; <",
       "required": false
     },
@@ -46,7 +46,7 @@
       "description": "Keyword to add in the place of REMOVE_STRING",
       "required": false
     },
-    "SUDO_USERS": {
+    "SUDO_USERS": {@Jedle707
       "description": "List of sudo users separated by > ; <",
       "required": false
     }
