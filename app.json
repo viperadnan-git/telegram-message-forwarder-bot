@@ -11,7 +11,7 @@
       "size": "free"
     }
   },
-  "env": {
+  "env": {config.env.template
     "API_ID": {22056986
       "description": "App api_id from https://my.telegram.org"
     },
