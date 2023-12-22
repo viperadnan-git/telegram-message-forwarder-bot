@@ -1,54 +1,44 @@
-import os
 import random
+import logging
 from time import sleep
 
 from pyrogram import filters
 
-from bot import (LOG, advance_config, app, chats_data, from_chats,
-                 remove_strings, replace_string, sudo_users, to_chats)
-from bot.helper.utils import get_formatted_chat
+from bot import app, monitored_chats, chats_map, sudo_users
+from pyrogram.types import Message
+from pyrogram.enums import ParseMode
+from pyrogram import Client
 
-LOG.info("Welcome, this is the telegram-message-forwarder-bot. main routine...")
+logging.info("Bot Started")
 
 
-@app.on_message(filters.chat(from_chats) & filters.incoming)
-def work(client, message):
+@app.on_message(filters.chat(monitored_chats) & filters.incoming)
+def work(_:Client, message:Message):
     caption = None
     msg = None
-    if remove_strings:
-        for string in remove_strings:
+    chat = chats_map.get(message.chat.id)
+    if chat.get("replace"):
+        for old, new in chat["replace"].items():
             if message.media and not message.poll:
-                caption = message.caption.html.replace(string, replace_string)
+                caption = message.caption.markdown.replace(old, new)
             elif message.text:
-                msg = message.text.html.replace(string, replace_string)
-    if advance_config:
-        try:
-            for chat in chats_data[message.chat.id]:
-                if caption:
-                    message.copy(chat, caption=caption)
-                elif msg:
-                    app.send_message(chat, msg, parse_mode="html")
-                else:
-                    message.copy(chat)
-        except Exception as e:
-            LOG.error(e)
-    else:
-        try:
-            for chat in to_chats:
-                if caption:
-                    message.copy(chat, caption=caption)
-                elif msg:
-                    app.send_message(chat, msg)
-                else:
-                    message.copy(chat)
-        except Exception as e:
-            LOG.error(e)
+                msg = message.text.markdown.replace(old, new)
+    try:
+        for chat in chat["to"]:
+            if caption:
+                message.copy(chat, caption=caption, parse_mode=ParseMode.MARKDOWN)
+            elif msg:
+                app.send_message(chat, msg, parse_mode=ParseMode.MARKDOWN)
+            else:
+                message.copy(chat)
+    except Exception as e:
+        logging.error(f"Error while sending message from {message.chat.id} to {chat}: {e}")
 
 
 @app.on_message(filters.user(sudo_users) & filters.command(["fwd", "forward"]), group=1)
 def forward(app, message):
     if len(message.command) > 1:
-        chat_id = get_formatted_chat(message.command[1], app)
+        chat_id = int(message.command[1])
         if chat_id:
             try:
                 offset_id = 0

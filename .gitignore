@@ -1,0 +1,4 @@
+__pycache__
+log.txt
+config.toml
+*.session

@@ -1,0 +1,36 @@
+# api_id and api_hash can be obtained from https://my.telegram.org
+# bot_token can be obtained from https://t.me/botfather
+# session_string can be obtained from https://repl.it/@subinps/GenerateStringSession
+# sudo_users can be obtained from https://t.me/userinfobot
+
+[pyrogram]
+api_id = 12345                                                      # required
+api_hash = "0123456789abcdef0123456789abcdef"                       # required
+bot_token = "123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ"                  # either bot_token or session_string is required
+session_string = "1BVn1-ABCD1234efgh5678IJKLmnoPQRsTUVwxyZxxxxxxxx" # either bot_token or session_string is required
+sudo_users = [123456789, 123456789]                                 # optional
+
+
+# chat ids can be obtained from https://t.me/getidsbot
+# All chats must be in the format of [-]1001234567890
+# You can add multiple chats in the format of a list
+# You can also add multiple chats in the format of a list of lists
+# Atleast one chat must be added
+
+[[chats]]
+from = -100123456789        # required
+to = 123456789              # required
+replace = { "old" = "new" } # optional
+
+[[chats]]
+from = [123456789, -100123456789]               # required
+to = 123456789                                  # required
+replace = { "only_apply_to_this_chat" = "new" } # optional
+
+[[chats]]
+from = -100123456789            # required
+to = [123456789, -100123456789] # required
+
+[[chats]]
+from = [123456789, -100123456789] # required
+to = [123456789, -100123456789]   # required

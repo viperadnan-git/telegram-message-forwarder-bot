@@ -1,75 +1,45 @@
-import logging
-import sys
-from os import environ
+def parse_chats(chats):
+    """
 
-log_level = environ.get("LOG_LEVEL", "INFO").upper()
-logging.basicConfig(
-    format="[%(asctime)s - %(pathname)s - %(levelname)s] %(message)s",
-    handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
-    level=log_level,
-)
-LOG = logging.getLogger(__name__)
+    [[chats]]
+    from = "123456789"
+    to = "123456789"
 
+    [[chats]]
+    from = ["123456789", "123456789"]
+    to = "123456789"
 
-def get_formatted_chats(chats, app):
-    formatted_chats = []
+    [[chats]]
+    from = "123456789"
+    to = ["123456789", "123456789"]
+
+    [[chats]]
+    from = ["123456789", "123456789"]
+    to = ["123456789", "123456789"]
+    """
+
+    # Set all from values to a list and, from => [to, replace] in dict
+    monitored_chats = set()
+    chats_map = {}
+
     for chat in chats:
-        try:
-            if isInt(chat):
-                formatted_chats.append(int(chat))
-            elif chat.startswith("@"):
-                formatted_chats.append(app.get_chat(chat.replace("@", "")).id)
-            elif (
-                chat.startswith("https://t.me/c/")
-                or chat.startswith("https://telegram.org/c/")
-                or chat.startswith("https://telegram.dog/c/")
-            ):
-                chat_id = chat.split("/")[4]
-                if isInt(chat_id):
-                    chat_id = "-100" + str(chat_id)
-                    chat_id = int(chat_id)
-                else:
-                    chat_id = app.get_chat(chat_id).id
-                formatted_chats.append(chat_id)
-            else:
-                LOG.warn("Chat ID cannot be parsed: {chat}")
-        except Exception as e:
-            LOG.error("Chat ID cannot be parsed: {chat}")
-            LOG.error(e)
-            sys.exit(1)
-    return formatted_chats
+        from_chats = chat["from"]
+        to_chats = chat["to"]
+        replace = chat.get("replace")
 
+        if not isinstance(from_chats, list):
+            from_chats = [from_chats]
 
-def get_formatted_chat(chat, app):
-    try:
-        if isInt(chat):
-            return int(chat)
-        elif chat.startswith("@"):
-            return app.get_chat(chat.replace("@", "")).id
-        elif (
-            chat.startswith("https://t.me/c/")
-            or chat.startswith("https://telegram.org/c/")
-            or chat.startswith("https://telegram.dog/c/")
-        ):
-            chat_id = chat.split("/")[4]
-            if isInt(chat):
-                chat_id = "-100" + str(chat_id)
-                chat_id = int(chat_id)
-            else:
-                chat_id = app.get_chat(chat_id).id
-            return chat_id
-        else:
-            LOG.warn("Chat ID cannot be parsed: {chat}")
-            return None
-    except Exception as e:
-        LOG.error("Chat ID cannot be parsed: {chat}")
-        LOG.error(e)
-        return None
+        if not isinstance(to_chats, list):
+            to_chats = [to_chats]
 
+        for from_chat in from_chats:
+            if from_chat not in chats_map:
+                chats_map[from_chat] = {"to": set(), "replace": replace}
 
-def isInt(value):
-    try:
-        int(value)
-        return True
-    except ValueError:
-        return False
+            for to_chat in to_chats:
+                chats_map[from_chat]['to'].add(to_chat)
+            
+            monitored_chats.add(from_chat)
+
+    return list(monitored_chats), chats_map
