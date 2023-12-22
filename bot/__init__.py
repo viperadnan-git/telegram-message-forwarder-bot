@@ -55,11 +55,21 @@ except:
     remove_strings = None
 
 if tg_session:
-    LOG.info("Session Mode - {tg_session}")
-    app = Client(tg_session, api_id, api_hash)
+    LOG.info("Login using Telegram Session String")
+    app = Client(
+        name="pyrogram",
+        api_id=api_id,
+        api_hash=api_hash,
+        session_string=tg_session,
+    )
 elif bot_token:
-    LOG.info("Bot Mode")
-    app = Client(":memory:", api_id, api_hash, bot_token=bot_token)
+    LOG.info("Login using Bot Token")
+    app = Client(
+        name="pyrogram",
+        api_id=api_id,
+        api_hash=api_hash,
+        bot_token=bot_token,
+    )
 else:
     LOG.error("Set either TELEGRAM_SESSION or BOT_TOKEN variable.")
     sys.exit(1)
