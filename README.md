@@ -11,8 +11,8 @@ If you want to pass the values as environment variables, then pass the content o
 - `api_id` - Your Telegram API ID.
 - `api_hash` - Your Telegram API Hash.
 - `session_string` - (Optional if `bot_token` is provided) Session string of your Telegram account. You can get it by running [`get_session.py`](./get_session.py) file.
-- `bot_token` - (Optional if `session_string` is provided) Bot token of your Telegram bot. You can get it by creating a bot using [@BotFather](https://t.me/BotFather).
-- `sudo_users` - (Optional) List of user ids of users who can use the bot. You can get your user id by sending `/id` command to [@MissRose_bot](https://t.me/MissRose_bot).
+- `bot_token` - (Optional if `session_string` is provided) Bot token of your Telegram bot. You can get it by creating a bot using [BotFather](https://t.me/BotFather).
+- `sudo_users` - (Optional) List of user ids of users who can use the bot. You can get your user id by sending `/id` command to [Rose](https://t.me/MissRose_bot).
 
 ```toml
 [pyrogram]
@@ -24,8 +24,8 @@ sudo_users = [123456789, 123456789]                                 # optional
 ```
 
 #### Chats Section
-- `from` - Chat id of the chat from which messages will be forwarded. You can get it by sending `/id` command to [@MissRose_bot](https://t.me/MissRose_bot).
-- `to` - Chat id of the chat to which messages will be forwarded. You can get it by sending `/id` command to [@MissRose_bot](https://t.me/MissRose_bot).
+- `from` - Chat id of the chat from which messages will be forwarded. You can get it by sending `/id` command to [Rose](https://t.me/MissRose_bot).
+- `to` - Chat id of the chat to which messages will be forwarded. You can get it by sending `/id` command to [Rose](https://t.me/MissRose_bot).
 - `replace` - (Optional) A dictionary of strings to replace in the message. The key is the string to be replaced and the value is the string to replace with. This is optional.
 
 You can add multiple chats by using the following format.
@@ -45,7 +45,7 @@ from = -100123456789            # required
 to = [123456789, -100123456789] # required
 ```
 
-Note: The chats should be in the format of `int` or `list` of `int`. If you want to use usernames, then you have to use the `chat_id` of the chat. You can get it by sending `/id` command to [@MissRose_bot](https://t.me/MissRose_bot).
+Note: The chats should be in the format of `int` or `list` of `int`. If you want to use usernames, then you have to use the `chat_id` of the chat. You can get it by sending `/id` command to [Rose](https://t.me/MissRose_bot).
 
 
 ### Note
