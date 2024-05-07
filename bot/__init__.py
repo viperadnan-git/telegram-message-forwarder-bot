@@ -46,6 +46,7 @@ sudo_users = config["pyrogram"].get("sudo_users", [])
 
 logging.info(f"Monitored chats: {', '.join(str(x) for x in monitored_chats)}")
 logging.info(f"Chats map: {chats_map}")
+logging.info(f"Sudo users: {sudo_users}")
 
 if config["pyrogram"].get("bot_token"):
     app = Client(
