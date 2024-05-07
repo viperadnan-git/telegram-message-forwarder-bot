@@ -13,10 +13,10 @@ from pyrogram import Client
 logging.info("Bot Started")
 
 
-@app.on_message(filters.chat(monitored_chats) & filters.incoming)
+@app.on_message(filters.chat(monitored_chats) & filters.all)
 def work(_:Client, message:Message):
     caption = None
-    msg = None
+    msg = message.text
     chat = chats_map.get(message.chat.id)
     if chat.get("replace"):
         for old, new in chat["replace"].items():
@@ -26,12 +26,10 @@ def work(_:Client, message:Message):
                 msg = message.text.markdown.replace(old, new)
     try:
         for chat in chat["to"]:
-            if caption:
+            if caption and should_send_message(caption):
                 message.copy(chat, caption=caption, parse_mode=ParseMode.MARKDOWN)
-            elif msg:
+            elif msg and should_send_message(msg):
                 app.send_message(chat, msg, parse_mode=ParseMode.MARKDOWN)
-            else:
-                message.copy(chat)
     except Exception as e:
         logging.error(f"Error while sending message from {message.chat.id} to {chat}: {e}")
 
@@ -62,5 +60,11 @@ def forward(client:Client, message:Message):
             "Invalid Command\nUse /fwd {chat_id} {limit} {first_message_id}"
         )
 
+
+def should_send_message(message):
+    keywords = chats_map["filter"]
+    if not keywords or len(keywords) == 0:
+        return True
+    return any(keyword in message.lower() for keyword in keywords)
 
 app.run()
